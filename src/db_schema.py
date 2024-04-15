@@ -17,34 +17,39 @@ db.execute("""
 db.execute("""
            CREATE TABLE IF NOT EXISTS LoadCells (
            LoadCellID VARCHAR(10) PRIMARY KEY, 
-           Model TEXT, 
-           CalFreq INTEGER,
-           IsActive TEXT
+           Model TEXT,
+           Sensor_SN INTEGER,
+           Sensor_ItemNo VARCHAR,
+           Sensor_Model VARCHAR, 
+           Instrument_SN INTEGER, 
+           Intrument_ItemNo VARCHAR,
+           Instrument_Model VARCHAR
            )
            """)
 
 # Create Calibrations Table
 db.execute("""
            CREATE TABLE IF NOT EXISTS Calibrations (
-           CalID INTEGER PRIMARY KEY, 
+           CalCertID INTEGER PRIMARY KEY, 
            LoadCellID VARCHAR(10), 
            CalDate DATE, 
            CalDue DATE, 
-           CalCert VARCHAR,
            FOREIGN KEY (LoadCellID) REFERENCES LoadCells(LoadCellID)
            )
            """)
 
-# Create JawForceFixtures Table
+# Create Equivalency Table
 db.execute("""
-           CREATE TABLE IF NOT EXISTS JawForceFixtures( 
-           JFFID INTEGER PRIMARY KEY,
+           CREATE TABLE IF NOT EXISTS Equivalency( 
+           EQID INTEGER PRIMARY KEY,
            FixtureID VARCHAR(10), 
            LoadCellID VARCHAR(10), 
+           EQID_Ref INTEGER,
            EQDIR INTEGER, 
            EQDate DATE, 
            FOREIGN KEY (FixtureID) REFERENCES Fixtures(FixtureID), 
-           FOREIGN KEY (LoadCellID) REFERENCES LoadCells(LoadCellID)
+           FOREIGN KEY (LoadCellID) REFERENCES LoadCells(LoadCellID),
+           FOREIGN KEY (EQID_Ref) REFERENCES Equivalency(EQID)
            )
            """)
 
