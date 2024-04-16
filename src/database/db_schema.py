@@ -22,7 +22,7 @@ db.execute("""
            Sensor_ItemNo VARCHAR,
            Sensor_Model VARCHAR, 
            Instrument_SN INTEGER, 
-           Intrument_ItemNo VARCHAR,
+           Instrument_ItemNo VARCHAR,
            Instrument_Model VARCHAR
            )
            """)
@@ -41,13 +41,12 @@ db.execute("""
 # Create Equivalency Table
 db.execute("""
            CREATE TABLE IF NOT EXISTS Equivalency( 
-           EQDIR INTEGER PRIMARY KEY,
+           EQDIR INTEGER PRIMARY KEY UNIQUE,
            FixtureID VARCHAR(10), 
            LoadCellID VARCHAR(10), 
            EQDate DATE, 
            EQDIR_Ref INTEGER,
-           FOREIGN KEY (FixtureID) REFERENCES Fixtures(FixtureID), 
-           FOREIGN KEY (LoadCellID) REFERENCES LoadCells(LoadCellID)
+           FOREIGN KEY (EQDIR_Ref) REFERENCES Equivalency(EQDIR)
            )
            """)
 
