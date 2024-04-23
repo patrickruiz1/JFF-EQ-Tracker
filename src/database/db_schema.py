@@ -41,11 +41,11 @@ db.execute("""
 # Create Equivalency Table
 db.execute("""
            CREATE TABLE IF NOT EXISTS Equivalency( 
-           EQDIR INTEGER PRIMARY KEY UNIQUE,
+           EQDIR VARCHAR PRIMARY KEY,
            FixtureID VARCHAR(10), 
            LoadCellID VARCHAR(10), 
            EQDate DATE, 
-           EQDIR_Ref INTEGER,
+           EQDIR_Ref VARCHAR,
            FOREIGN KEY (EQDIR_Ref) REFERENCES Equivalency(EQDIR)
            )
            """)
